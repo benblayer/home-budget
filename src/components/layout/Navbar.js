@@ -1,20 +1,32 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 
-export default function Navbar() {
-  const list = [
-    { label: "About", path: "/about" },
-    { label: "Home", path: "/" },
-  ];
+const useStyles = makeStyles(() => ({
+  navbar: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
+
+const Navbar = ({ appName }) => {
+
+  const classes = useStyles();
 
   return (
-    <Fragment>
-      <div className='header'>Home Budget</div>
-      <div className='navigation-menu'>
-        {list.map((navItem) => (
-          <Link to={navItem.path}>{navItem.label}</Link>
-        ))}
-      </div>
-    </Fragment>
+    <div className='navbar'>
+      <AppBar position='static'>
+        <Toolbar>
+          <Typography variant='h6'className={classes.title} >{appName}</Typography>
+          <Button color='inherit'>Login</Button>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
-}
+};
+export default Navbar;
