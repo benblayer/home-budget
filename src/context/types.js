@@ -1,0 +1,6 @@
+export const ADD_BUDGET = 'ADD_BUDGET';
+export const DELETE_BUDGET = 'DELETE_BUDGET';
+export const SET_CURRENT = 'SET_CURRENT';
+export const CLEAR_CURRENT = 'CLEAR_CURRENT';
+export const UPDATE_BUDGET = 'UPDATE_BUDGET';
+export const GET_ALL_BUDGETS = 'GET_ALL_BUDGETS';
