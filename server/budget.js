@@ -23,6 +23,7 @@ async function getBudget(name) {
 module.exports.getAllBudgets = async () => {
   try {
     const budgets = await Budget.find();
+    console.log("get all budgets:", budgets);
     return budgets;
   } catch (error) {
     console.error("error in get all budgets");

@@ -83,6 +83,7 @@ const BudgetState = props => {
         setCurrent,
         clearCurrent,
         updateBudget,
+        getAllBudgets
       }}
     >
       {props.children}

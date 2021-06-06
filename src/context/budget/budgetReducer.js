@@ -1,8 +1,8 @@
 import {
   ADD_BUDGET,
   DELETE_BUDGET,
-  SET_CURRENT,
-  CLEAR_CURRENT,
+  // SET_CURRENT,
+  // CLEAR_CURRENT,
   UPDATE_BUDGET_AMOUNT,
 } from "../types";
 
