@@ -1,18 +1,19 @@
 const Budget = require("./model/Budget");
 
-function createBudget(budgetData) {
+module.exports.createBudget = async budgetData => {
   console.log("data:", budgetData);
   try {
     const budget = new Budget(budgetData);
-    return budget.save();
+    return await budget.save();
   } catch (error) {
     console.error("error in create budget", error);
   }
-}
+};
 
 async function getBudget(name) {
   try {
     const budget = await Budget.find({ name });
+    console.log('Found budget:', budget);
     return budget;
   } catch (error) {
     console.error("error in get budget", error);
@@ -39,10 +40,11 @@ async function updateBudgetAmount(name, amount) {
   }
 }
 
-async function deleteBudget(name) {
+module.exports.deleteBudget = async name => {
   try {
-    await Budget.findAndDelete({ name });
+    const result = await Budget.deleteOne({name});
+    return result.deletedCount > 0;
   } catch (error) {
     console.error("error in delete budget", error);
   }
-}
+};

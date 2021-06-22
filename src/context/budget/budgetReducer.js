@@ -1,6 +1,7 @@
 import {
   ADD_BUDGET,
   DELETE_BUDGET,
+  GET_ALL_BUDGETS,
   // SET_CURRENT,
   // CLEAR_CURRENT,
   UPDATE_BUDGET_AMOUNT,
@@ -19,6 +20,11 @@ const budgetReducer = (state, action) => {
         budgets: state.budgets.filter(
           budget => budget.name !== action.payload.name
         ),
+      };
+    case GET_ALL_BUDGETS:
+      return {
+        ...state,
+        budgets: action.payload.data,
       };
     case UPDATE_BUDGET_AMOUNT:
       return {

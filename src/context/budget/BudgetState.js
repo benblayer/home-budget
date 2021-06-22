@@ -7,22 +7,23 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_BUDGET,
-  GET_ALL_BUDGETS
+  GET_ALL_BUDGETS,
 } from "../types";
-import axios from 'axios';
+import axios from "axios";
 
 const BudgetState = props => {
+  const baseUrl = "http://localhost:5000";
   const initialState = {
     budgets: [
       {
-        name: 'Bills',
+        name: "Bills",
         startDate: Date.now(),
         durationInMonths: 1,
         initialAmount: 5000,
         currentAmount: 5000,
       },
       {
-        name: 'Fun',
+        name: "Fun",
         startDate: Date.now(),
         durationInMonths: 1,
         initialAmount: 3000,
@@ -35,32 +36,32 @@ const BudgetState = props => {
   const [state, dispatch] = useReducer(budgetReducer, initialState);
 
   const getAllBudgets = async () => {
-    const budgets = await axios.get('/budgets');
+    const budgets = await axios.get(`${baseUrl}/budgets`);
     if (budgets) {
-      dispatch({ type: GET_ALL_BUDGETS, payload: budgets })
+      dispatch({ type: GET_ALL_BUDGETS, payload: budgets });
     } else {
-      console.error('failed to get all budgets');
+      console.error("failed to get all budgets");
     }
-  }
+  };
 
   const addBudget = async budget => {
-    const addedBudget = await axios.post('/budgets', budget)
+    const addedBudget = await axios.post(`${baseUrl}/budget`, budget);
     if (addedBudget) {
       dispatch({ type: ADD_BUDGET, payload: budget });
     } else {
-      console.error('failed to add budget', budget.name)
+      console.error("failed to add budget", budget.name);
     }
   };
   const deleteBudget = async name => {
-    const deleted = await axios.delete('/budgets', { 
+    const result = await axios.delete("/budget", {
       data: {
-        budgetName: name
-      }
-    })
-    if (deleted) {
+        budgetName: name,
+      },
+    });
+    if (result.data.deleted) {
       dispatch({ type: DELETE_BUDGET, payload: { name } });
     } else {
-      console.error('failed to delete budget', name);
+      console.error("failed to delete budget", name);
     }
   };
   const setCurrent = name => {
@@ -83,7 +84,7 @@ const BudgetState = props => {
         setCurrent,
         clearCurrent,
         updateBudget,
-        getAllBudgets
+        getAllBudgets,
       }}
     >
       {props.children}
