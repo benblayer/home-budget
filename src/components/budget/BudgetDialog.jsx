@@ -8,14 +8,15 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 const BudgetDialog = ({ onClose, onSubmit, open }) => {
-  const [budget, setBudget] = useState({
+  const emptyState = {
     name: "",
     initialAmount: 0,
     currentAmount: 0,
     startDate: "",
     durationInMonths: 0,
     category: "",
-  });
+  };
+  const [budget, setBudget] = useState(emptyState);
   const handleChange = e => {
     console.log("Change:", e);
     setBudget({ ...budget, [e.target.name]: e.target.value });
@@ -24,8 +25,13 @@ const BudgetDialog = ({ onClose, onSubmit, open }) => {
     console.log("Submit budget:", budget);
     onSubmit(budget);
   };
+
+  const _onCancel = () => {
+    setBudget(emptyState);
+    onClose();
+  }
   return (
-    <Dialog onClose={onClose} onSubmit={onSubmit} open={open}>
+    <Dialog onClose={_onCancel} onSubmit={onSubmit} open={open}>
       <DialogTitle>Add new budget</DialogTitle>
       <List>
         <ListItem>
@@ -75,6 +81,7 @@ const BudgetDialog = ({ onClose, onSubmit, open }) => {
         </ListItem>
         <ListItem>
           <Button onClick={_onSubmit}>Ok</Button>
+          <Button onClick={_onCancel}>Cancel</Button>
         </ListItem>
       </List>
     </Dialog>

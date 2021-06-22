@@ -14,23 +14,8 @@ import axios from "axios";
 const BudgetState = props => {
   const baseUrl = "http://localhost:5000";
   const initialState = {
-    budgets: [
-      {
-        name: "Bills",
-        startDate: Date.now(),
-        durationInMonths: 1,
-        initialAmount: 5000,
-        currentAmount: 5000,
-      },
-      {
-        name: "Fun",
-        startDate: Date.now(),
-        durationInMonths: 1,
-        initialAmount: 3000,
-        currentAmount: 3000,
-      },
-    ],
-    current: null,
+    budgets: [],
+    current: "EMPTY",
   };
 
   const [state, dispatch] = useReducer(budgetReducer, initialState);
@@ -64,21 +49,21 @@ const BudgetState = props => {
       console.error("failed to delete budget", name);
     }
   };
-  const setCurrent = name => {
-    dispatch({ type: SET_CURRENT, payload: { name } });
+  const setCurrent = budget => {
+    dispatch({ type: SET_CURRENT, payload: budget });
   };
   const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT });
   };
-  const updateBudget = (name, amount) => {
-    dispatch({ type: UPDATE_BUDGET, payload: { name, amount } });
+  const updateBudget = budget => {
+    dispatch({ type: UPDATE_BUDGET, payload: budget });
   };
 
   return (
     <BudgetContext.Provider
       value={{
         budgets: state.budgets,
-        current: state.current,
+        currentBudget: state.current,
         addBudget,
         deleteBudget,
         setCurrent,

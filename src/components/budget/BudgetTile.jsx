@@ -4,7 +4,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 
-const BudgetTile = ({budget, onDelete}) => {
+const BudgetTile = ({budget, onDelete, onClick}) => {
   const {
     name,
     startDate,
@@ -15,7 +15,7 @@ const BudgetTile = ({budget, onDelete}) => {
   } = budget;
   console.log("Budget Card:", name);
   return (
-    <Card>
+    <Card onClick={() => onClick(budget)}>
       <CardHeader title={name}></CardHeader>
       <CardContent>
         <ul>

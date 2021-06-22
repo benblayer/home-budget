@@ -1,10 +1,11 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./components/layout/Home";
-import About from "./components/About";
+import Home from "./pages/Home";
+import About from "./pages/About";
 import Navbar from "./components/layout/Navbar";
 import BudgetState from "./context/budget/BudgetState";
+import BudgetPage from "./pages/BudgetPage";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
             </Route>
             <Route path='/about'>
               <About />
+            </Route>
+            <Route path='/budget'>
+              <BudgetPage></BudgetPage>
             </Route>
           </Switch>
         </Router>

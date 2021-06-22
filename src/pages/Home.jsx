@@ -1,26 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
-import BudgetTile from "./BudgetTile";
-import BudgetContext from "../../context/budget/budgetContext";
+import BudgetTile from "../components/budget/BudgetTile";
+import BudgetContext from "../context/budget/budgetContext";
 import Button from "@material-ui/core/Button";
-import BudgetDialog from "./BudgetDialog";
+import BudgetDialog from "../components/budget/BudgetDialog";
+import { useHistory } from "react-router";
 
-const BudgetMain = () => {
+const Home = () => {
   const addNewBudgetLabel = "Add New Budget";
   const [dialogOpen, setDialogOpen] = useState(false);
   console.log("budget main loaded");
   const budgetContext = useContext(BudgetContext);
+  const history = useHistory();
   const {
     budgets,
-    // current,
+    currentBudget,
     addBudget,
     deleteBudget,
-    // setCurrent,
+    setCurrent,
     // clearCurrent,
     // updateBudget,
     getAllBudgets,
   } = budgetContext;
   useEffect(() => {
-    console.log("BudegetMain Getting All Budgets");
     getAllBudgets();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -36,37 +37,43 @@ const BudgetMain = () => {
   };
 
   const onSubmitDialog = budget => {
-    console.log("submit");
     setDialogOpen(false);
     addBudget(budget);
   };
 
   const onDelete = name => {
     deleteBudget(name);
-  }
+  };
 
-  console.log("Current budgets:", budgets);
+  const onBudgetClicked = budget => {
+    setCurrent(budget);
+    history.push(`/budget/${budget.name.toLowerCase()}`);
+  };
 
   return (
     <div className='budget-main'>
       <div ref={ref}>
         <BudgetDialog
+          open={dialogOpen}
           onClose={onCloseDialog}
           onSubmit={onSubmitDialog}
-          open={dialogOpen}
         />
       </div>
       <div>
         <Button onClick={onAddNewBudget}>{addNewBudgetLabel}</Button>
       </div>
       <div>
-        {budgets.map(budget => {
-          console.log("Budget:", budget);
-          return <BudgetTile key={budget._id} budget={budget} onDelete={onDelete} />;
-        })}
+        {budgets.map(budget => (
+          <BudgetTile
+            key={budget.name}
+            budget={budget}
+            onDelete={onDelete}
+            onClick={onBudgetClicked}
+          />
+        ))}
       </div>
     </div>
   );
 };
 
-export default BudgetMain;
+export default Home;
