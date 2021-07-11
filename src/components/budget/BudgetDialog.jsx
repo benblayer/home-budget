@@ -15,6 +15,7 @@ const BudgetDialog = ({ onClose, onSubmit, open }) => {
     startDate: "",
     durationInMonths: 0,
     category: "",
+    transactions: []
   };
   const [budget, setBudget] = useState(emptyState);
   const handleChange = e => {

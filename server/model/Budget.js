@@ -9,6 +9,7 @@ const budgetSchema = new Schema({
   initialAmount: Number,
   currentAmount: Number,
   category: String,
+  transactions: Array
 });
 
 module.exports = mongoose.model('Budget', budgetSchema)

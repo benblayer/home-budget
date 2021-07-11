@@ -5,6 +5,7 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_BUDGET_AMOUNT,
+  UPDATE_BUDGET,
 } from "../types";
 
 const budgetReducer = (state, action) => {
@@ -34,6 +35,13 @@ const budgetReducer = (state, action) => {
             (budget.name = action.payload.name
               ? { ...budget, amount: budget.amount + action.payload.amount }
               : budget)
+        ),
+      };
+    case UPDATE_BUDGET:
+      return {
+        ...state,
+        budgets: state.budgets.map(budget =>
+          budget.name === action.payload.name ? action.payload : budget
         ),
       };
     case SET_CURRENT:
